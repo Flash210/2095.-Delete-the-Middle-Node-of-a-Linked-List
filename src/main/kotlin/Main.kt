@@ -1,33 +1,72 @@
-import java.lang.StringBuilder
-import java.util.Stack
-
-fun main(args: Array<String>) {
-
-
-    val ch="leet**cod*e"
-
-    System.out.println(RemoveStarts(ch))
-
+class Node(var data: Int) {
+    var next: Node? = null
 }
 
-fun RemoveStarts(ch:String):String{
+class LinkedList {
+    var head: Node? = null
 
-val sb=StringBuilder()
-
-    val st=Stack<Char>()
-
-  ch.forEach {
-
-      //it.takeIf { it != '*' }?.run { st.add(this) } ?: st.pop()
-      if (it != '*') st.add(it) else st.pop()
-
-  }
-
-    //The Power of StringBuilder: A Deep Dive into Stack Data Storage
-   // sb.append(st)
-    st.forEach{ sb.append(it)}
-
+    fun append(data: Int) {
+        val newNode = Node(data)
+        if (head == null) {
+            head = newNode
+            return
+        }
+        var current = head
+        while (current?.next != null) {
+            current = current.next
+        }
+        current?.next = newNode
+    }
 
 
-    return sb.toString()
+
+
+
+    fun DisplayLinkedListData() {
+
+
+        var curent = head
+
+        while (curent != null) {
+            print("${curent.data} ->")
+            curent = curent.next
+        }
+
+        println("null")
+    }
+
+    fun  DeleteTheMiddleNode():Node?{
+
+        if ( head == null || head?.next == null) return null
+
+
+        var fast = head?.next?.next
+        var slow=head
+
+        while( fast!=null && fast.next!=null){
+            slow=slow?.next
+            fast=fast?.next?.next
+
+        }
+        slow?.next=slow?.next?.next
+
+
+
+
+        return head
+
+    }
 }
+    fun main(args: Array<String>) {
+
+var list=LinkedList()
+        list.append(1)
+        list.append(2)
+        list.append(3)
+        list.append(4)
+
+        list.DisplayLinkedListData()
+        list.DeleteTheMiddleNode()
+list.DisplayLinkedListData()
+    }
+
